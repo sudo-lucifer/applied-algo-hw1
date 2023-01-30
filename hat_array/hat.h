@@ -4,19 +4,20 @@
 #define HATARRAY_H
 
 using namespace std;
-// template<class T>
 class HatArray{
         public:
-                HatArray();
+                HatArray(int b);
                 void push(int element);
                 void pop();
                 int length();
                 void print();
                 string toString();
+                void destroy();
         private:
                 // TODO: change later
-                int* arrayPointer;
-                int size;
+                int** array_pointer;
+                int b_size;
+                int total_keys;
 };
 
 #endif
