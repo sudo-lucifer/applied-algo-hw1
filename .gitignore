@@ -17,5 +17,6 @@
 *.synctex.gz
 *.synctex.gz(busy)
 *.pdfsync
-_minted*/
-
+_minted*/	
+hat
+hat.dSYM
