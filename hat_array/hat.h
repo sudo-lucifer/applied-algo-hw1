@@ -17,6 +17,7 @@ class HatArray{
                 int** array_pointer;
                 int b_size;
                 int total_cap;
+                int min_n;
                 int total_keys;
 };
 

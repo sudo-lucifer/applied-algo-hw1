@@ -6,35 +6,24 @@
 using namespace std;
 
  
-// uint64_t rdtsc(){
-        // uint64_t val;
-        // asm volatile("mrs %0, cntvct_el0" : "=r" (val));
-        // return val;
-// }
-
-// uint64_t rdtsc(){
-//     unsigned int lo,hi;
-//     __asm__ __volatile__ ("rdtsc" : "=a" (lo), "=d" (hi));
-//     return ((uint64_t)hi << 32) | lo;
+// static __inline__ unsigned long long rdtsc(void){
+//     unsigned hi, lo;  
+//     __asm__ __volatile__ ("rdtsc" : "=a"(lo), "=d"(hi));
+//     return ( (unsigned long long)lo)|( ((unsigned long long)hi)<<32   );
 // }
  
 
 
 int main() {
         HatArray hat_array;
-        vector<int> vector;
-        // uint64_t hat_tick = rdtsc();
-        hat_array.push(1);
-        // cout << "HAT CPU count: " << (rdtsc() - hat_tick) << "\n";
-        // uint64_t vector_tick = rdtsc();
-        vector.push_back(1);
-        // cout << "Vector CPU count: " << (rdtsc() - vector_tick) << "\n";
-        // for (int i = 0; i < 5; i++) {
-                // hat_array.push(i);
-                // vector.push_back(i);
-                // cout << hat_array.get(i);
-                // cout << "\n";
-        // }
+        // vector<int> vector;
+        for (int i = 1; i <= 300; i++) {
+                hat_array.push(i);
+        }
+
+        for (int i = 1; i <= 300; i++) {
+                hat_array.pop();
+        }
         cout << hat_array.toString() + "\n";
         hat_array.destroy();
         return 0;
