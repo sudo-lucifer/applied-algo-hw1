@@ -6,7 +6,7 @@
 using namespace std;
 class HatArray{
         public:
-                HatArray(int b);
+                HatArray();
                 void push(int element);
                 void pop();
                 int get(int index);

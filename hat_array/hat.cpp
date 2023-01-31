@@ -6,44 +6,46 @@
 
 using namespace std;
 
-HatArray::HatArray(int b) {
-        array_pointer = (int**) malloc(sizeof(int*) * b);
-        for (int i = 0; i < b; i++) {
-                array_pointer[i] = (int*) malloc(sizeof(int) * b);
+HatArray::HatArray() {
+        b_size = 2;
+        array_pointer = (int**) malloc(sizeof(int*) * b_size);
+        for (int i = 0; i < b_size; i++) {
+                array_pointer[i] = (int*) malloc(sizeof(int) * b_size);
         }
-        array_pointer[0][0] = 10;
-
-        b_size = b;
         total_keys = 0;
 }
 
-int pow_num(int base, int power) {
-        int result = base;
-        for (int i = 0; i < power; i++){
-                result *= base;
-        }
-        return base;
+int HatArray::get(int index) {
+        int k = b_size / 2;
+        int array_pointer_index = index >> k;
+        int block_index = index & (1 >> (k - 1));
+        int* block_array = array_pointer[array_pointer_index];
+        return block_array[block_index];
 }
 
 
 void HatArray::push(int element) {
-        int total_space = pow(b_size, b_size);
-        if (total_keys >= total_space) {
-                array_pointer = (int**) realloc(array_pointer, sizeof(int*) * (b_size * 2));
-                for (int block_index = 0; block_index < b_size * 2; block_index++) {
-                        array_pointer[block_index] = (int*) realloc(array_pointer[block_index], sizeof(int) * (b_size * 2));
+        int total_cap = pow(b_size, b_size);
+        if (total_keys >= total_cap) {
+                int new_b_size = b_size * 2;
+                int** new_array_pointer = (int**) malloc(sizeof(int*) * new_b_size);
+                int n_copy = 0;
+                for (int pointer_index = 0; pointer_index < new_b_size; pointer_index++) {
+                        new_array_pointer[pointer_index] = (int*) malloc(sizeof(int) * new_b_size);
+                        int block_index = 0;
+                        while (n_copy < total_keys) {
+                                new_array_pointer[pointer_index][block_index] = get(n_copy);
+                                block_index++;
+                                n_copy++;
+                        }
                 }
-                // copy data over
-                // for (int i = 0; i < total_keys; i++) {
-                // }
-                b_size *= 2;
-                // return;
+                destroy();
+                array_pointer = new_array_pointer;
+                b_size = new_b_size;
         }
         int array_pointer_index = floor((total_keys) / b_size);
         int block_index = (total_keys) % b_size;
-        int* block_array = array_pointer[array_pointer_index];
-        block_array[block_index] = element;
-        cout<< "pass end\n";
+        array_pointer[array_pointer_index][block_index] = element;
         total_keys++;
 }
 
@@ -51,9 +53,6 @@ void HatArray::pop() {
         total_keys--;
 }
 
-int HatArray::get(int index) {
-        return 0;
-}
 
 int HatArray::length() {
         return total_keys;
