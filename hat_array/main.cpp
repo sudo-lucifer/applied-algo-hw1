@@ -12,36 +12,23 @@ using namespace std;
         // return val;
 // }
 
-//  Windows
-#ifdef _WIN32
-
-#include <intrin.h>
-uint64_t rdtsc(){
-    return __rdtsc();
-}
-
-//  Linux/GCC
-#else
-
-uint64_t rdtsc(){
-    unsigned int lo,hi;
-    __asm__ __volatile__ ("rdtsc" : "=a" (lo), "=d" (hi));
-    return ((uint64_t)hi << 32) | lo;
-}
-
-#endif
+// uint64_t rdtsc(){
+//     unsigned int lo,hi;
+//     __asm__ __volatile__ ("rdtsc" : "=a" (lo), "=d" (hi));
+//     return ((uint64_t)hi << 32) | lo;
+// }
  
 
 
 int main() {
         HatArray hat_array;
         vector<int> vector;
-        uint64_t hat_tick = rdtsc();
+        // uint64_t hat_tick = rdtsc();
         hat_array.push(1);
-        cout << "HAT CPU count: " << (rdtsc() - hat_tick) << "\n";
-        uint64_t vector_tick = rdtsc();
+        // cout << "HAT CPU count: " << (rdtsc() - hat_tick) << "\n";
+        // uint64_t vector_tick = rdtsc();
         vector.push_back(1);
-        cout << "Vector CPU count: " << (rdtsc() - vector_tick) << "\n";
+        // cout << "Vector CPU count: " << (rdtsc() - vector_tick) << "\n";
         // for (int i = 0; i < 5; i++) {
                 // hat_array.push(i);
                 // vector.push_back(i);
