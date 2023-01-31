@@ -9,6 +9,7 @@ using namespace std;
 
 HatArray::HatArray() {
         b_size = 2;
+        total_cap = pow(b_size, b_size);
         array_pointer = (int**) malloc(sizeof(int*) * b_size);
         for (int i = 0; i < b_size; i++) {
                 array_pointer[i] = (int*) malloc(sizeof(int) * b_size);
@@ -30,7 +31,6 @@ int HatArray::get(int index) {
 
 
 void HatArray::push(int element) {
-        int total_cap = pow(b_size, b_size);
         if (total_keys >= total_cap) {
                 int new_b_size = b_size * 2;
                 int** new_array_pointer = (int**) malloc(sizeof(int*) * new_b_size);
@@ -47,6 +47,7 @@ void HatArray::push(int element) {
                 destroy();
                 array_pointer = new_array_pointer;
                 b_size = new_b_size;
+                total_cap = pow(b_size, b_size);
         }
         int k = b_size / 2;
         int array_pointer_index = total_keys >> k;
