@@ -22,7 +22,7 @@ int HatArray::get(int index) {
                 destroy();
                 throw std::out_of_range("Index out of range");
         }
-        int k = log2(b_size);
+        int k = 32 - __builtin_clz(b_size) - 1;
         int array_pointer_index = index >> k;
         int block_index = index % b_size;
         int* block_array = array_pointer[array_pointer_index];
@@ -50,7 +50,7 @@ void HatArray::push(int element) {
                 total_cap = pow(b_size, 2);
                 min_n = pow(b_size / 4,2);
         }
-        int k = log2(b_size);
+        int k = 32 - __builtin_clz(b_size) - 1;
         int array_pointer_index = total_keys >> k;
         // TODO: change to not use %
         int block_index = total_keys % b_size;

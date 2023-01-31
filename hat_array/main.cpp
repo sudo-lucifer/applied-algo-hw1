@@ -17,14 +17,21 @@ using namespace std;
 int main() {
         HatArray hat_array;
         // vector<int> vector;
-        for (int i = 1; i <= 300; i++) {
+        int n = 100000;
+        for (int i = 1; i <= n; i++) {
                 hat_array.push(i);
         }
 
-        for (int i = 1; i <= 300; i++) {
-                hat_array.pop();
+        for (int i = 0; i < n; i++) {
+                if (i + 1 != hat_array.get(i)) {
+                        cout << "Wrong at idx: " << i << "\n";
+                }
         }
-        cout << hat_array.toString() + "\n";
+
+        // for (int i = 1; i <= 300; i++) {
+        //         hat_array.pop();
+        // }
+        // cout << hat_array.toString() + "\n";
         hat_array.destroy();
         return 0;
 }
