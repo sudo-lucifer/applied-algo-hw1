@@ -12,11 +12,6 @@ int main() {
                 cout << "\n";
         }
         cout << a.toString() + "\n";
-        // for (int i = 1; i <= 3; i++){
-                // a.push(i);
-                // cout << a.toString() + "\n";
-        // }
-        // cout << a.toString();
         a.destroy();
         return 0;
 }

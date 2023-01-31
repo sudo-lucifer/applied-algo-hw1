@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <iostream>
 #include "math.h"
+#include <stdexcept>
 #include <string>
 #include "hat.h"
 
@@ -16,6 +17,10 @@ HatArray::HatArray() {
 }
 
 int HatArray::get(int index) {
+        if (index >= total_keys) {
+                destroy();
+                throw std::out_of_range("Index out of range");
+        }
         int k = b_size / 2;
         int array_pointer_index = index >> k;
         int block_index = index & (1 >> (k - 1));
@@ -43,8 +48,9 @@ void HatArray::push(int element) {
                 array_pointer = new_array_pointer;
                 b_size = new_b_size;
         }
-        int array_pointer_index = floor((total_keys) / b_size);
-        int block_index = (total_keys) % b_size;
+        int k = b_size / 2;
+        int array_pointer_index = total_keys >> k;
+        int block_index = total_keys & (1 >> (k - 1));
         array_pointer[array_pointer_index][block_index] = element;
         total_keys++;
 }
