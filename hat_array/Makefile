@@ -11,9 +11,11 @@ compile: hat.cpp hat.h main.cpp resizable_array.cpp resizable_array.h
 run: hat
 	./hat
 
-check_mem_leak: hat
+check_mem_leak: 
 	# valgrind --tool=memcheck --leak-check=yes hat
+	$(CC) $(CFLAGS) -o hat hat.cpp main.cpp resizable_array.cpp 
 	leaks --atExit --groupByType --list -- ./hat 
+	rm -rf *.o hat hat.dSYM *~
 
 clean: 
 	rm -rf *.o hat hat.dSYM *~

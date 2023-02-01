@@ -75,23 +75,23 @@ void append_latency(int round, int max_operation) {
         ResizableArrayFile << "operation_amount,cpu_count\n";
 
         cout << "================== Append Latency  ==================\n";
-        long result_hat = benchmark_hat_push_n(round, 1);
         long result_resizable = benchmark_resizable_array_push_n(round,1);
+        long result_hat = benchmark_hat_push_n(round, 1);
         cout << "HAT CPU count: " << result_hat << "\n";
         cout << "Resizable array CPU count: " << result_resizable << "\n\n";
 
-        for (int operation = 1; operation <= max_operation; operation++) {
-                long begin = rdtsc();
-                hat_array.push(operation);
-                long end = rdtsc();
-                HatFile << operation << "," << (end - begin) << "\n";
-        }
         for (int operation = 1; operation <= max_operation; operation++) {
                 long begin = rdtsc();
                 resizable_array.push(operation);
                 long end = rdtsc();
                 ResizableArrayFile << operation << "," << (end - begin) << "\n";
 
+        }
+        for (int operation = 1; operation <= max_operation; operation++) {
+                long begin = rdtsc();
+                hat_array.push(operation);
+                long end = rdtsc();
+                HatFile << operation << "," << (end - begin) << "\n";
         }
         hat_array.destroy();
         resizable_array.destroy();
@@ -101,8 +101,8 @@ void append_latency(int round, int max_operation) {
 
 void overall_throughput(int round, int max_operation) {
         cout << "================== Overall thoughput  ==================\n";
-        long total_hat = benchmark_hat_push_n(round, max_operation);
         long total_resizable = benchmark_resizable_array_push_n(round, max_operation);
+        long total_hat = benchmark_hat_push_n(round, max_operation);
         cout << "Overall pushing benchmark from 1 to " << max_operation << " operation\n" ;
         cout << "HAT CPU count: " << total_hat << "\n";
         cout << "Resizable array CPU count: " << total_resizable << "\n";
