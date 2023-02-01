@@ -96,10 +96,10 @@ void overall_throughput(int round, int max_operation) {
                 long result_hat = end - begin;
                 HatFile << operation << "," << (end - begin) << "\n";
 
-                begin = rdtsc();
+                long begin_2 = rdtsc();
                 resizable_array.push(operation);
-                end = rdtsc();
-                ResizableArrayFile << operation << "," << (end - begin) << "\n";
+                long end_2 = rdtsc();
+                ResizableArrayFile << operation << "," << (end_2 - begin_2) << "\n";
         }
         hat_array.destroy();
 }
