@@ -21,3 +21,6 @@ _minted*/
 hat
 hat.dSYM
 .vscode
+.Makefile.un~
+.main.cpp.un~
+

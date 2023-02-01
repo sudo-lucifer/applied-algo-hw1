@@ -8,11 +8,11 @@
 using namespace std;
 
  
-// static __inline__ unsigned long long rdtsc(void){
-//     unsigned hi, lo;  
-//     __asm__ __volatile__ ("rdtsc" : "=a"(lo), "=d"(hi));
-//     return ( (unsigned long long)lo)|( ((unsigned long long)hi)<<32   );
-// }
+static __inline__ unsigned long long rdtsc(void){
+    unsigned hi, lo;  
+    __asm__ __volatile__ ("rdtsc" : "=a"(lo), "=d"(hi));
+    return ( (unsigned long long)lo)|( ((unsigned long long)hi)<<32   );
+}
 
 void benchmark_push_n(int n) {
         cout << "Start benchmarking push n elements\n";
@@ -53,22 +53,24 @@ void benchmark_push_one() {
 
 void save_push_benchmark(int push_amount) {
         cout << "Start recording benchmark data\n";
-        ofstream HatFile('hat_benchmark.csv');
-        ofstream ResizableArrayFile('resizable_array_benchmark.csv');
+        ofstream HatFile("hat_benchmark.csv");
+        ofstream ResizableArrayFile("resizable_array_benchmark.csv");
         ResizableArray resizable_array;
         HatArray hat_array;
+        HatFile << "size,cpu_count\n";
+        ResizableArray << "size,cpu_count\n";
         for (int i = 1; i <= push_amount; i++) {
                 long begin = rdtsc();
                 hat_array.push(1);
                 long end = rdtsc();
-                HatFile << i << "," << (enb - begin) << "\n";
+                HatFile << i << "," << (end - begin) << "\n";
         }
         HatFile.close();
         for (int i = 1; i <= push_amount; i++) {
                 long begin = rdtsc();
                 resizable_array.push(1);
                 long end = rdtsc();
-                ResizableArrayFile << i << "," << (enb - begin) << "\n";
+                ResizableArrayFile << i << "," << (end - begin) << "\n";
         }
         ResizableArrayFile.close();
 }
@@ -80,6 +82,6 @@ int main() {
         cout << "=========================================================\n";
         benchmark_push_n(10);
         cout << "=========================================================\n";
-        save_push_benchmark(10);
+        save_push_benchmark(50);
         return 0;
 }
