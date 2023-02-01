@@ -66,7 +66,7 @@ long benchmark_resizable_array_push_n(int round, int push_amount) {
 
 } 
 
-void append_latency(int round) {
+void append_latency(int round, int max_operation) {
         HatArray hat_array;
         ResizableArray resizable_array;
         ofstream HatFile("hat_benchmark.csv");
@@ -100,8 +100,6 @@ void append_latency(int round) {
 }
 
 void overall_throughput(int round, int max_operation) {
-        HatFile << "operation_amount,cpu_count\n";
-        ResizableArrayFile << "operation_amount,cpu_count\n";
         cout << "================== Overall thoughput  ==================\n";
         long total_hat = benchmark_hat_push_n(round, max_operation);
         long total_resizable = benchmark_resizable_array_push_n(round, max_operation);
@@ -115,7 +113,7 @@ int main() {
         int max_operation = 50;
         int round = 100000;
 
-        append_latency(round);
+        append_latency(round, max_operation);
         overall_throughput(round, max_operation);
         return 0;
 }
