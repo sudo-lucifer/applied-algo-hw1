@@ -93,7 +93,6 @@ void overall_throughput(int round, int max_operation) {
                 long begin = rdtsc();
                 hat_array.push(operation);
                 long end = rdtsc();
-                long result_hat = end - begin;
                 HatFile << operation << "," << (end - begin) << "\n";
 
                 long begin_2 = rdtsc();
