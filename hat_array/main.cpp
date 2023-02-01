@@ -53,7 +53,7 @@ long benchmark_hat_push_n(int round, int push_amount) {
         for (int i = 0; i < round; i++) {
                 total += hat_push_n(push_amount);
         }
-        return total / round
+        return total / round;
 
 }
 
@@ -62,7 +62,7 @@ long benchmark_resizable_array_push_n(int round, int push_amount) {
         for (int i = 0; i < round; i++) {
                 total += resizable_push_n(push_amount);
         }
-        return total / round
+        return total / round;
 
 }
 
@@ -113,7 +113,7 @@ int main() {
                 HatFile << operation << "," << result_hat << "\n";
                 ResizableArrayFile << operation << "," << result_resizable << "\n";
         }
-        count << "Overall pushing benchmark from 1 to " << max_operation << " operation\n" ;
+        cout << "Overall pushing benchmark from 1 to " << max_operation << " operation\n" ;
         cout << "HAT CPU count: " << (total_hat / max_operation ) << "\n";
         cout << "Resizable array CPU count: " << (total_resizable / max_operation ) << "\n";
         return 0;
