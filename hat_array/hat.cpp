@@ -37,18 +37,21 @@ void HatArray::push(int element) {
                 int n_copy = 0;
                 for (int pointer_index = 0; pointer_index < new_b_size; pointer_index++) {
                         new_array_pointer[pointer_index] = (int*) malloc(sizeof(int) * new_b_size);
-                        int block_index = 0;
-                        while ((n_copy < total_keys) && block_index < new_b_size) {
-                                new_array_pointer[pointer_index][block_index] = get(n_copy);
-                                block_index++;
-                                n_copy++;
+                        if (n_copy < total_keys) {
+                                int block_index = 0;
+                                while ((n_copy < total_keys) && block_index < new_b_size) {
+                                        new_array_pointer[pointer_index][block_index] = get(n_copy);
+                                        block_index++;
+                                        n_copy++;
+                                }
                         }
                 }
                 destroy();
                 array_pointer = new_array_pointer;
                 b_size = new_b_size;
-                total_cap = pow(b_size, 2);
-                min_n = pow(b_size / 4,2);
+                total_cap = b_size * b_size;
+                int min_base = b_size / 4;
+                min_n = min_base * min_base;
         }
         int k = 32 - __builtin_clz(b_size) - 1;
         int array_pointer_index = total_keys >> k;

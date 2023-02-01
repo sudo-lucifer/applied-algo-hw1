@@ -115,5 +115,17 @@ int main() {
 
         append_latency(round, max_operation);
         overall_throughput(round, max_operation);
+        // HatArray hat_array;
+        // int n = 1000;
+        // for (int i = 1; i <= n; i++ ) {
+        //         hat_array.push(i);
+        // }
+        // for (int i = 0; i < n; i++) {
+        //         if (i + 1 != hat_array.get(i)) {
+        //                 cout << "Wrong at index " << i << "\n";
+        //         }
+        // }
+        // cout << hat_array.toString() << "\n";
+        // hat_array.destroy();
         return 0;
 }
