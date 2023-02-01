@@ -24,7 +24,7 @@ int HatArray::get(int index) {
         }
         int k = 32 - __builtin_clz(b_size) - 1;
         int array_pointer_index = index >> k;
-        int block_index = index % b_size;
+        int block_index = index & (b_size - 1);
         int* block_array = array_pointer[array_pointer_index];
         return block_array[block_index];
 }
@@ -52,8 +52,7 @@ void HatArray::push(int element) {
         }
         int k = 32 - __builtin_clz(b_size) - 1;
         int array_pointer_index = total_keys >> k;
-        // TODO: change to not use %
-        int block_index = total_keys % b_size;
+        int block_index = total_keys & (b_size - 1);
         array_pointer[array_pointer_index][block_index] = element;
         total_keys++;
 }
@@ -91,7 +90,10 @@ int HatArray::length() {
 string HatArray::toString() {
         string result = "[";
         for (int i = 0; i < total_keys; i++) {
-                result += to_string(get(i)) + ",";
+                result += to_string(get(i));
+                if (i != total_keys - 1) {
+                        result += ",";
+                }
         }
         result += "]";
         return result;
