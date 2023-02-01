@@ -23,7 +23,7 @@ void benchmark_push_one() {
         cout << "Traditional resizable array CPU count: " << (end - begin) << "\n";
         begin = rdtsc();
         hat_array.push(1);
-        long end = rdtsc();
+        end = rdtsc();
         cout << "HAT array CPU count: " << (end - begin) << "\n";
         resizable_array.destroy();
         hat_array.destroy();
