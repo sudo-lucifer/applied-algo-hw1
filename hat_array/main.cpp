@@ -67,19 +67,39 @@ long benchmark_resizable_array_push_n(int round, int push_amount) {
 } 
 
 void append_latency(int round) {
+        HatArray hat_array;
+        ResizableArray resizable_array;
+        ofstream HatFile("hat_benchmark.csv");
+        ofstream ResizableArrayFile("resizable_array_benchmark.csv");
+        HatFile << "operation_amount,cpu_count\n";
+        ResizableArrayFile << "operation_amount,cpu_count\n";
+
         cout << "================== Append Latency  ==================\n";
         long result_hat = benchmark_hat_push_n(round, 1);
         long result_resizable = benchmark_resizable_array_push_n(round,1);
         cout << "HAT CPU count: " << result_hat << "\n";
         cout << "Resizable array CPU count: " << result_resizable << "\n\n";
+
+        for (int operation = 1; operation <= max_operation; operation++) {
+                long begin = rdtsc();
+                hat_array.push(operation);
+                long end = rdtsc();
+                HatFile << operation << "," << (end - begin) << "\n";
+        }
+        for (int operation = 1; operation <= max_operation; operation++) {
+                long begin = rdtsc();
+                resizable_array.push(operation);
+                long end = rdtsc();
+                ResizableArrayFile << operation << "," << (end - begin) << "\n";
+
+        }
+        hat_array.destroy();
+        resizable_array.destroy();
+        ResizableArrayFile.close();
+        HatFile.close();
 }
 
 void overall_throughput(int round, int max_operation) {
-        HatArray hat_array;
-        ResizableArray resizable_array;
-
-        ofstream HatFile("hat_benchmark.csv");
-        ofstream ResizableArrayFile("resizable_array_benchmark.csv");
         HatFile << "operation_amount,cpu_count\n";
         ResizableArrayFile << "operation_amount,cpu_count\n";
         cout << "================== Overall thoughput  ==================\n";
@@ -89,22 +109,10 @@ void overall_throughput(int round, int max_operation) {
         cout << "HAT CPU count: " << total_hat << "\n";
         cout << "Resizable array CPU count: " << total_resizable << "\n";
         cout << "========================================================\n";
-        for (int operation = 1; operation <= max_operation; operation++) {
-                long begin = rdtsc();
-                hat_array.push(operation);
-                long end = rdtsc();
-                HatFile << operation << "," << (end - begin) << "\n";
-
-                long begin_2 = rdtsc();
-                resizable_array.push(operation);
-                long end_2 = rdtsc();
-                ResizableArrayFile << operation << "," << (end_2 - begin_2) << "\n";
-        }
-        hat_array.destroy();
 }
 
 int main() {
-        int max_operation = 100;
+        int max_operation = 50;
         int round = 100000;
 
         append_latency(round);
