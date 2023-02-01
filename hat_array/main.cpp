@@ -94,21 +94,20 @@ void overall_throughput(int round, int max_operation) {
                 hat_array.push(i);
                 long end = rdtsc();
                 long result_hat = end - begin;
+                HatFile << operation << "," << (end - start) << "\n";
 
                 begin = rdtsc();
                 resizable_array.push(i);
                 end = rdtsc();
-                long result_resizable = end - start;
 
-                HatFile << operation << "," << result_hat << "\n";
-                ResizableArrayFile << operation << "," << result_resizable << "\n";
+                ResizableArrayFile << operation << "," << (end - start) << "\n";
         }
         hat_array.destroy();
 }
 
 int main() {
-        int max_operation = 50;
-        int round = 10000;
+        int max_operation = 100;
+        int round = 100000;
 
         append_latency(round);
         overall_throughput(round, max_operation);
