@@ -19,26 +19,27 @@ long hat_push_one(int i) {
         long begin = rdtsc();
         hat_array.push(i);
         long end = rdtsc();
+        hat_array.destroy();
         return end - begin;
 }
 
 long hat_push_n(int n) {
         HatArray hat_array;
-        hat_array.push(i);
         long total = 0;
         for (int i = 0; i < n; i++) {
                 total += hat_push_one(i);
         }
+        hat_array.destroy();
         return total;
 }
 
-void benchmark_push_n(int n, int test_size) {
+void benchmark_push_n(int round, int push_amount) {
         cout << "Start benchmarking push n elements\n";
-        long avg = 0;
-        for (int i = 0; i < n; i++) {
-                avg = hat_push_n(test_size);
+        long total = 0;
+        for (int i = 0; i < round; i++) {
+                total += hat_push_n(push_amount);
         }
-        cout << "HAT array CPU count: " << (total / n) << "\n";
+        cout << "HAT array CPU count: " << (total / round) << "\n";
         hat_array.destroy();
 
 }
@@ -90,7 +91,7 @@ void save_push_benchmark(int push_amount) {
 int main() {
         // benchmark_push_one();
         // cout << "=========================================================\n";
-        benchmark_push_n(10);
+        benchmark_push_n(100,10);
         cout << "=========================================================\n";
         save_push_benchmark(50);
         return 0;
