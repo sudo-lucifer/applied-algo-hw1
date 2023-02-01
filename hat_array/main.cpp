@@ -91,16 +91,15 @@ void overall_throughput(int round, int max_operation) {
         cout << "========================================================\n";
         for (int operation = 1; operation <= max_operation; operation++) {
                 long begin = rdtsc();
-                hat_array.push(i);
+                hat_array.push(operation);
                 long end = rdtsc();
                 long result_hat = end - begin;
-                HatFile << operation << "," << (end - start) << "\n";
+                HatFile << operation << "," << (end - begin) << "\n";
 
                 begin = rdtsc();
-                resizable_array.push(i);
+                resizable_array.push(operation);
                 end = rdtsc();
-
-                ResizableArrayFile << operation << "," << (end - start) << "\n";
+                ResizableArrayFile << operation << "," << (end - begin) << "\n";
         }
         hat_array.destroy();
 }
