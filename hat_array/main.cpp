@@ -40,7 +40,6 @@ void benchmark_push_n(int round, int push_amount) {
                 total += hat_push_n(push_amount);
         }
         cout << "HAT array CPU count: " << (total / round) << "\n";
-        hat_array.destroy();
 
 }
 
