@@ -58,7 +58,7 @@ void save_push_benchmark(int push_amount) {
         ResizableArray resizable_array;
         HatArray hat_array;
         HatFile << "size,cpu_count\n";
-        ResizableArray << "size,cpu_count\n";
+        ResizableArrayFile << "size,cpu_count\n";
         for (int i = 1; i <= push_amount; i++) {
                 long begin = rdtsc();
                 hat_array.push(1);
@@ -73,6 +73,8 @@ void save_push_benchmark(int push_amount) {
                 ResizableArrayFile << i << "," << (end - begin) << "\n";
         }
         ResizableArrayFile.close();
+        hat_array.destroy();
+        resizable_array.destroy();
 }
  
 
