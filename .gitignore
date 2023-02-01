@@ -23,4 +23,7 @@ hat.dSYM
 .vscode
 .Makefile.un~
 .main.cpp.un~
+.ipynb_checkpoints
+hat_benchmark.csv
+resizable_array_benchmark.csv
 

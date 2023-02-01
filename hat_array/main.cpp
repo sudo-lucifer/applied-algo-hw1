@@ -79,21 +79,21 @@ void overall_throughput(int round, int max_operation) {
         ofstream ResizableArrayFile("resizable_array_benchmark.csv");
         HatFile << "operation_amount,cpu_count\n";
         ResizableArrayFile << "operation_amount,cpu_count\n";
-        long total_hat = 0;
-        long total_resizable = 0;
         cout << "================== Overall thoughput  ==================\n";
+        long total_hat = benchmark_hat_push_n(round, max_operation);
+        long total_resizable = benchmark_resizable_array_push_n(round, max_operation);
+        cout << "Overall pushing benchmark from 1 to " << max_operation << " operation\n" ;
+        cout << "HAT CPU count: " << total_hat << "\n";
+        cout << "Resizable array CPU count: " << total_resizable << "\n";
+        cout << "========================================================\n";
         for (int operation = 1; operation <= max_operation; operation++) {
-                long result_hat = benchmark_hat_push_n(round, operation);
-                long result_resizable = benchmark_resizable_array_push_n(round, operation);
+                long result_hat = benchmark_hat_push_n(round, 1);
+                long result_resizable = benchmark_resizable_array_push_n(round, 1);
                 total_hat += result_hat;
                 total_resizable += result_resizable;
                 HatFile << operation << "," << result_hat << "\n";
                 ResizableArrayFile << operation << "," << result_resizable << "\n";
         }
-        cout << "Overall pushing benchmark from 1 to " << max_operation << " operation\n" ;
-        cout << "HAT CPU count: " << (total_hat / max_operation ) << "\n";
-        cout << "Resizable array CPU count: " << (total_resizable / max_operation ) << "\n";
-        cout << "========================================================\n";
 }
 
 int main() {
