@@ -95,11 +95,26 @@ HAT array. On the expansion, tradditional resizable array is better than HAT arr
 
 Getting element by index in HAT array is tricky in the way that we need to calculate the block index and 
 the index of element in particular block. This seems to take more cycle than traditional resizable array. 
-Surprisingly, both of data structures take same amount of CPU cycle to access element in the machine memory.
+Surprisingly, HAT array uses slightly less cycle then resizable array.
 Benchmark is finding the average (out of 100,000 times) CPU count on each data structure element access. The result
-is that both arrays take 18 cycles.
+is that HAT array takes 33 cycles on average while traditional resizable array takes 38 cycles. Therefore,
+HAT array access element faster by 8 percents approximately.
 
 \section{Scan throughput}
+
+Continue from section 1.2, this section will illustrate the total latency of accesing/reading all elements
+in array. Let's start with both arrays have 500 elements. HAT array costs 16800 cycles in total while 
+traditional resizable array costs 18918 cycles on reading.
+
+\begin{figure}[h]
+        \centering
+        \includegraphics[width=0.4\textwidth,scale=0.2]{scan_output.png}
+        \caption{\label{fig:scan-latency} Benchmark of scanning through array}
+\end{figure}
+
+As we can see in figure \ref{fig:scan-latency}, HAT array is nearly stable on reading after 300 elements.
+Resizeable array, on the other side, have a few operation that strike CPU cycle which reaches over 45 cycles.
+In conclusion, HAT array still wins in this competition that it scans faster by 13 percents.
 
 \section{Overall throughput}
 
