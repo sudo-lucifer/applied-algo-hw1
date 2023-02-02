@@ -74,12 +74,12 @@ The actual implement is in \href{https://github.com/sudo-lucifer/applied-algo-hw
 In this section, the cost of appending one key to the array mainly comes from reading memory. 
 On tradditional resizable array, pushing new key to the back costs approximatetly 47 cycles
 from reading memory pointer which needs to be conducted at most the entire array. On the other hand,
-Sitarski's HAT array takes less cycle per apeend operation since the entire array is separated 
+Sitarski's HAT array takes less cycle per apeend operation which is 26 cycles since the entire array is separated 
 into $b$ size where $b$ where $b = 2^k$.
 
 \begin{figure}[h]
         \centering
-        \includegraphics[width=0.5\textwidth,scale=0.2]{append_latency_output.png}
+        \includegraphics[width=0.4\textwidth,scale=0.2]{append_latency_output.png}
         \caption{\label{fig:append-latency} Benchmark of each append costs}
 \end{figure}
 

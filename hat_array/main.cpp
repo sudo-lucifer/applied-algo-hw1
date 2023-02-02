@@ -85,7 +85,6 @@ void append_latency(int round, int max_operation) {
                 resizable_array.push(operation);
                 long end = rdtsc();
                 ResizableArrayFile << operation << "," << (end - begin) << "\n";
-
         }
         for (int operation = 1; operation <= max_operation; operation++) {
                 long begin = rdtsc();
@@ -97,6 +96,34 @@ void append_latency(int round, int max_operation) {
         resizable_array.destroy();
         ResizableArrayFile.close();
         HatFile.close();
+}
+
+void access_latency(int round) {
+        cout << "================== Access Latency  ==================\n";
+        HatArray hat_array;
+        ResizableArray resizable_array;
+        hat_array.push(1);
+        resizable_array.push(1);
+        long total_hat = 0;
+        long total_resizable = 0;
+        for (int i = 0; i < round; i++) {
+                long begin = rdtsc();
+                hat_array.get(0);
+                long end = rdtsc();
+                total_hat += (end - begin);
+        }
+        for (int i = 0; i < round; i++) {
+                long begin = rdtsc();
+                resizable_array.get(0);
+                long end = rdtsc();
+                total_resizable += (end - begin);
+        }
+        cout << "HAT CPU count: " << (total_hat / round) << "\n";
+        cout << "Resizable array CPU count: " << (total_resizable / round) << "\n";
+        cout << "=====================================================\n";
+
+
+
 }
 
 void overall_throughput(int round, int max_operation) {
