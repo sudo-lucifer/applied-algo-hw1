@@ -141,7 +141,7 @@ int main() {
         int round = 100000;
 
         append_latency(round, max_operation);
-        append_latency(round);
+        access_latency(round);
         overall_throughput(round, max_operation);
         // HatArray hat_array;
         // int n = 1000;
