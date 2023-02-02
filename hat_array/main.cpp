@@ -172,10 +172,11 @@ void overall_throughput(int round, int max_operation) {
 int main() {
         int max_operation = 50;
         int round = 100000;
+        int scan_amount = 1000;
 
         append_latency(round, max_operation);
         access_latency(round);
-        scan_throughput(max_operation);
+        scan_throughput(scan_amount);
         overall_throughput(round, max_operation);
         // HatArray hat_array;
         // int n = 1000;
