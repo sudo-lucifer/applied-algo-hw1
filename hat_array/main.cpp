@@ -120,10 +120,43 @@ void access_latency(int round) {
         }
         cout << "HAT CPU count: " << (total_hat / round) << "\n";
         cout << "Resizable array CPU count: " << (total_resizable / round) << "\n";
-        cout << "=====================================================\n";
+        hat_array.destroy();
+        resizable_array.destroy();
+}
 
 
-
+void scan_throughput(int element) {
+        cout << "================== Scan Latency  ==================\n";
+        HatArray hat_array;
+        ResizableArray resizable_array;
+        ofstream HatFile("hat_scan_benchmark.csv");
+        ofstream ResizableArrayFile("resizable_array_scan_benchmark.csv");
+        HatFile << "read,cpu_count\n";
+        ResizableArrayFile << "read,cpu_count\n";
+        for (int i = 1; i <= element; i++) {
+                hat_array.push(i);
+                resizable_array.push(i);
+        }
+        long total_hat = 0;
+        long total_resizable = 0;
+        for (int i = 0; i < element; i++) {
+                long begin = rdtsc();
+                hat_array.get(0);
+                long end = rdtsc();
+                total_hat += (end - begin);
+                HatFile << i + 1 << "," << (end - begin) << "\n";
+        }
+        for (int i = 0; i < element; i++) {
+                long begin = rdtsc();
+                resizable_array.get(0);
+                long end = rdtsc();
+                total_resizable += (end - begin);
+                ResizableArrayFile << i + 1 << "," << (end - begin) << "\n";
+        }
+        cout << "HAT CPU count: " << (total_hat) << "\n";
+        cout << "Resizable array CPU count: " << (total_resizable) << "\n";
+        hat_array.destroy();
+        resizable_array.destroy();
 }
 
 void overall_throughput(int round, int max_operation) {
@@ -142,6 +175,7 @@ int main() {
 
         append_latency(round, max_operation);
         access_latency(round);
+        scan_throughput(max_operation);
         overall_throughput(round, max_operation);
         // HatArray hat_array;
         // int n = 1000;

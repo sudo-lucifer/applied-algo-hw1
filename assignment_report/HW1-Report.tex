@@ -91,6 +91,16 @@ resizing needs to be done in both levels combine with copying data over.
 In conclusion, traditional resizable array takes more cycle to access memory and append new day than
 HAT array. On the expansion, tradditional resizable array is better than HAT array.
 
+\section{Access latency}
+
+Getting element by index in HAT array is tricky in the way that we need to calculate the block index and 
+the index of element in particular block. This seems to take more cycle than traditional resizable array. 
+Surprisingly, both of data structures take same amount of CPU cycle to access element in the machine memory.
+Benchmark is finding the average (out of 100,000 times) CPU count on each data structure element access. The result
+is that both arrays take 18 cycles.
+
+\section{Scan throughput}
+
 \section{Overall throughput}
 
 In section 1.1, I have shown append latency which conclude to have different benefits.
