@@ -91,7 +91,14 @@ resizing needs to be done in both levels combine with copying data over.
 In conclusion, traditional resizable array takes more cycle to access memory and append new day than
 HAT array. On the expansion, tradditional resizable array is better than HAT array.
 
-\chapter{Space usage of skip lists}
+\section{Overall throughput}
+
+In section 1.1, I have shown append latency which conclude to have different benefits.
+For this benchmark, I will test inserting 50 elements to both tradditional resizable array and
+HAT array. As a consequence, resizable array takes 1153 cycles on average while HAT array takes
+1114 cycles on average. Even though the expansion is costly in HAT array, overall throughput
+of it is around 5 percents faster than resizable array.
+
 
 \chapter{Skip lists}
 
