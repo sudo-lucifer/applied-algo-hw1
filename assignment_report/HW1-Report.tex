@@ -8,6 +8,14 @@
 \usepackage{minted}
 \usepackage{amsthm}        
 \usepackage{graphicx}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdfpagemode=FullScreen,
+}
 
 \renewcommand\qedsymbol{$\blacksquare$}
 
@@ -51,6 +59,37 @@
 \tableofcontents
 
 \chapter{Resizeable Arrays}
+
+Traditionally, resizable array has a high amortized cost depending on $\alpha$ for expansion and shrinking. HAT array theoretically fares
+with a constant amortized cost on expansion and shrinking. Our goal is to perform teh benchmarking of the actual implementation of 
+traditionaly resizable array and Sitarski's HAT array.
+
+\section{Set up}
+
+Both of data structure implementations are written in C++ which runs on ubuntu server. 
+The actual implement is in \href{https://github.com/sudo-lucifer/applied-algo-hw1/tree/main/hat_array}{Github}.
+
+\section{Append latency}
+
+In this section, the cost of appending one key to the array mainly comes from reading memory. 
+On tradditional resizable array, pushing new key to the back costs approximatetly 47 cycles
+from reading memory pointer which needs to be conducted at most the entire array. On the other hand,
+Sitarski's HAT array takes less cycle per apeend operation since the entire array is separated 
+into $b$ size where $b$ where $b = 2^k$.
+
+\begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth,scale=0.2]{append_latency_output.png}
+        \caption{\label{fig:append-latency} Benchmark of each append costs}
+\end{figure}
+
+Figure \ref{fig:append-latency} shows the cost of each append out of 50 append operations.
+Tradditional resizable array shows up to stike CPU cycle more on each operation since the expansion
+happens more often than HAT array. However, HAT array costs significantly higher cycle because the 
+resizing needs to be done in both levels combine with copying data over.
+
+In conclusion, traditional resizable array takes more cycle to access memory and append new day than
+HAT array. On the expansion, tradditional resizable array is better than HAT array.
 
 \chapter{Space usage of skip lists}
 
