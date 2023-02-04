@@ -172,7 +172,7 @@ void overall_throughput(int round, int max_operation) {
 int main() {
         int max_operation = 50;
         int round = 100000;
-        int scan_amount = 1000;
+        int scan_amount = 500;
 
         append_latency(round, max_operation);
         access_latency(round);

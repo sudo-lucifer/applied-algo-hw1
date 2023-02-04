@@ -37,7 +37,7 @@
 \setlength{\parskip}{5pt plus 1pt}
  
 \pagestyle{fancyplain}
-\lhead{\fancyplain{}{\textbf{Project}}}      % Note the different brackets!
+\lhead{\fancyplain{}{\textbf{HW} \myhwnum}}      % Note the different brackets!
 \rhead{\fancyplain{}{\myname}}
 \chead{\fancyplain{}{\mySubject}}
 
@@ -140,30 +140,41 @@ The result of \emph{(2,3) tree} is
 
 \begin{figure}[h]
         \centering
-        \includegraphics[width=0.9\textwidth,scale=0.5]{tree_insertion.jpeg}
+        \includegraphics[width=0.8\textwidth,scale=0.5]{tree_insertion.jpeg}
 \end{figure}
 
 \section{Key deletion}
 
-\noindent Suppose that we want to delete 309 in \emph{(2,3) tree}, it falls into case 1 which 
-we need to steal from sibling.
+\noindent Suppose that we want to delete 309 in \emph{(2,3) tree} (Firgure \ref{fig:tree-deletion-1}), it falls into case 2 which 
+we need to merge from sibling (Figure \ref{fig:tree-deletion-2}).
 
 \begin{figure}[h]
         \centering
-        \includegraphics[width=0.8\textwidth,scale=0.5]{tree_deletion_1.jpeg}
+        \includegraphics[width=0.7\textwidth,scale=0.5]{tree_deletion_1.jpeg}
         \caption{\label{fig:tree-deletion-1} Unbalanced tree without key 309}
 \end{figure}
 
 \begin{figure}[h]
         \centering
         \includegraphics[width=0.8\textwidth,scale=0.5]{tree_deletion_2.jpeg}
-        \caption{\label{fig:tree-deletion-2} Balanced tree after finding replacement by stealing}
+        \caption{\label{fig:tree-deletion-2} Tree after merging}
 \end{figure}
 
-As you can see in Figure \ref{fig:tree-deletion-2}, the replacements are 513 and 449 which 513 is the new parent node
-that has 449 and 548 as a child nodes. 
+However, the merged tree in figure \ref{fig:tree-deletion-2} is not balance as the second layer node has 3 keys. So, we need to project 449 up to root.
+
+\begin{figure}[h]
+        \centering
+        \includegraphics[width=0.8\textwidth,scale=0.5]{tree_deletion_3.jpeg}
+        \caption{\label{fig:tree-deletion-3} Final tree}
+\end{figure}
+
+
+As you can see in Figure \ref{fig:tree-deletion-3}, the replacements are 449 which is the result from merging 
+non-root tree in figure \ref{fig:tree-deletion-2}.
 \begin{align*}
-        \alpha_{\text{me}} = a - 1 + 1
+        \alpha_{\text{me}} &= a - 1 \\
+        \alpha_{\text{sib}} &= a \\
+        \alpha_{\text{sib}} + \alpha_{\text{me}} &= 2a - 1 \leq b
 \end{align*} 
 
 
