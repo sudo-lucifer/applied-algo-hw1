@@ -6,12 +6,28 @@ using namespace std;
 
 LinkedList::LinkedList() {
 	sentinel = new LinkedListNode(0);
-	cout << sentinel->toString() + "\n";
 	size = 0;
 }
 
 void LinkedList::push(int element) {
-	return;
+	LinkedListNode *previous_node = sentinel;
+	LinkedListNode *current_node = sentinel->right_node;
+	bool added = 0;
+	while (current_node != NULL) {
+		if (element <= current_node->key) {
+			LinkedListNode *new_node = new LinkedListNode(element);
+			previous_node->right_node = new_node;
+			new_node->right_node = current_node;
+			added = 1;
+			break;
+		}
+		previous_node = current_node;
+		current_node = current_node->right_node;
+	}
+	if (!added) {
+		previous_node->right_node = new LinkedListNode(element);
+	}
+	size++;
 }
 
 
@@ -32,18 +48,24 @@ int LinkedList::length() {
 }
 
 string LinkedList::toString() {
+	LinkedListNode *current_node = sentinel->right_node;
+	if (current_node == NULL) {
+		return "No key";
+	}
+	for (int i = 0; i < size; i++) {
+		cout << current_node->key << " ";
+		current_node = current_node->right_node;
+	}
 	return "";
 }
 
 void LinkedList::destroy() {
 	LinkedListNode *previous_node = sentinel;
-	if (size <= 0) {
-		delete previous_node;
-	}
-	for (int i = 0; i < size; i++) {
+	while (previous_node != NULL) {
 		LinkedListNode *current_node = previous_node->right_node;
 		delete previous_node;
 		previous_node = current_node;
 	}
+	delete previous_node;
 }
 
