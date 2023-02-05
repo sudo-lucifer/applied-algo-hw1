@@ -26,15 +26,17 @@ void insert_latency(int n) {
 	long total_linked_list = 0;
 	for (int i = 1; i <= n; i++) {
 		long start = rdtsc();
-		linked_list.push(i);
-		long end = rdtsc();
-		LinkedListFile << i << "," << (end - start) << "\n";
-	}
-	for (int i = 1; i <= n; i++) {
-		long start = rdtsc();
 		skip_list.insert(i);
 		long end = rdtsc();
 		SkipListFile << i << "," << (end - start) << "\n";
+		total_skip_list += (end - start);
+	}
+	for (int i = 1; i <= n; i++) {
+		long start = rdtsc();
+		linked_list.push(i);
+		long end = rdtsc();
+		LinkedListFile << i << "," << (end - start) << "\n";
+		total_linked_list += (end - start)
 	}
 	cout << "Average one insertion cycle count\n";
 	cout << "Skip list: " << (total_skip_list / n) << "\n";
