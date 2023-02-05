@@ -36,7 +36,7 @@ void insert_latency(int n) {
 		linked_list.push(i);
 		long end = rdtsc();
 		LinkedListFile << i << "," << (end - start) << "\n";
-		total_linked_list += (end - start)
+		total_linked_list += (end - start);
 	}
 	cout << "Average one insertion cycle count\n";
 	cout << "Skip list: " << (total_skip_list / n) << "\n";
