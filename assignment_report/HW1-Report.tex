@@ -127,6 +127,17 @@ of it is around 5 percents faster than resizable array.
 
 \chapter{Skip lists}
 
+\section{One directional skip list vs. sorted linked list}
+
+Sorted linked list theoretically takes $O(n)$ complexity for insertion and scan throughput. 
+Skip list comes to take place in theory land that it improve time complexity of those 2 operations.
+For insertion, skip list takes $O(\log_2 n)$ with whp. The same thing goes with scan throughput since
+we guarantee with high probability that every access costs $\Theta(log_2 n)$ where $n$ is the number of elements.
+Let's see the real breanchmark using c++ language on insertion and scan throughput.
+
+
+\subsection{Append latency}
+
 \chapter{(a,b) tree}
 
 \section{Multiple keys insertion.}
