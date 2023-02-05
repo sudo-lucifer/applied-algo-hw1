@@ -11,6 +11,7 @@ class SkipList {
 		SkipList(int max_level, float p);
 		int random_level();
 		void insert(int element);
+		SkipListNode* search(int element);
 		string toString();
 	private:
 		float prob;

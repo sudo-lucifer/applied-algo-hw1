@@ -39,7 +39,6 @@ void SkipList::insert(int element) {
 
 	if (current_layer_node == NULL || current_layer_node->key != element) {
 		int random_layer = random_level();
-		// cout << random_layer << "\n";
 
 		if (random_layer > current_level) {
 			for (int i = current_level + 1; i < random_layer + 1; i++){
@@ -55,6 +54,21 @@ void SkipList::insert(int element) {
 			update_node_level[i]->node_pointers[i] = new_node;
 		}
 	}
+}
+
+SkipListNode* SkipList::search(int element) {
+	SkipListNode* current_node = sentinels;
+	for (int i = max_list_level; i >= 0; i--) {
+		while(current_node->node_pointers[i] != NULL && current_node->node_pointers[i]->key < element) {
+			cout << current_node->node_pointers[i]->key << "\n";
+			current_node = current_node->node_pointers[i];
+		}
+	}
+	current_node = current_node->node_pointers[0];
+	if (current_node && current_node->key == element) {
+		return current_node;
+	}
+	return NULL;
 }
 
 string SkipList::toString() {
