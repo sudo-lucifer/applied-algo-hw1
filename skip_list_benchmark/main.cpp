@@ -46,6 +46,43 @@ void insert_latency(int n) {
 	cout << "linked list: " << total_linked_list << "\n";
 }
 
+void scan_latency(int n) {
+	ofstream SkipListFile("skip_list_scan.csv");
+	ofstream LinkedListFile("linked_list_scan.csv");
+	SkipListFile << "operation,cpu_count\n";
+	LinkedListFile << "operation,cpu_count\n";
+	int max_level_skip_list = log(n);
+	SkipList skip_list(max_level_skip_list, (float) 1/4);
+	LinkedList linked_list;
+	cout << "================ Search ================\n";
+	long total_skip_list = 0;
+	long total_linked_list = 0;
+	for (int i = 1; i <= n; i++) {
+		skip_list.insert(i);
+		linked_list.push(i);
+	}
+	for (int i = 1; i <= n; i++) {
+		long start = rdtsc();
+		skip_list.search(i);
+		long end = rdtsc();
+		SkipListFile << i << "," << (end - start) << "\n";
+		total_skip_list += (end - start);
+	}
+	for (int i = 1; i <= n; i++) {
+		long start = rdtsc();
+		linked_list.search(i);
+		long end = rdtsc();
+		LinkedListFile << i << "," << (end - start) << "\n";
+		total_linked_list += (end - start);
+	}
+	cout << "Average one search cycle count\n";
+	cout << "Skip list: " << (total_skip_list / n) << "\n";
+	cout << "linked list: " << (total_linked_list / n) << "\n";
+	cout << "\nTotal scan cycle cout cycle count\n";
+	cout << "Skip list: " << total_skip_list << "\n";
+	cout << "linked list: " << total_linked_list << "\n";
+}
+
 // void test_skip_list() {
 // 	int n = 20;
 // 	int max_level_skip_list = log(n);
@@ -75,5 +112,6 @@ void insert_latency(int n) {
 int main() {
 	int n = 10000;
 	insert_latency(n);
+	scan_latency(n);
 	return 0;
 }
