@@ -5,9 +5,14 @@ using namespace std;
 
 int main() {
 	LinkedList a;
-	// a.push(1);
-	// a.push(2);
-	// a.push(3);
+	a.push(1);
+	a.push(10);
+	a.push(5);
+	cout << a.get(0) << "\n";
+	cout << a.get(1) << "\n";
+	cout << a.get(2) << "\n";
+	cout << a.get(3) << "\n";
+
 	cout << a.toString() << "\n";
 	a.destroy();
 	return 0;

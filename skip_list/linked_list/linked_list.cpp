@@ -32,12 +32,26 @@ void LinkedList::push(int element) {
 
 
 void LinkedList::pop() {
-	return;
+	if (sentinel->right_node != NULL) {
+		LinkedListNode *removed_node = sentinel->right_node;
+		sentinel->right_node = removed_node->right_node;
+		delete removed_node;
+		size--;
+	}
 }
 
-// LinkedListNode LinkedList::get(int index) {
-// 	return new LinkedListNode(-1);
-// }
+LinkedListNode* LinkedList::get(int index) {
+	LinkedListNode* current_node = sentinel->right_node;
+	int current_index = 0;
+	while (current_index < index) {
+		if (current_node == NULL) {
+			break;
+		}
+		current_node = current_node->right_node;
+		current_index++;
+	}
+	return current_node;
+}
 
 int LinkedList::search(int key) {
 	return 1;
@@ -52,7 +66,7 @@ string LinkedList::toString() {
 	if (current_node == NULL) {
 		return "No key";
 	}
-	for (int i = 0; i < size; i++) {
+	while (current_node != NULL) {
 		cout << current_node->key << " ";
 		current_node = current_node->right_node;
 	}
