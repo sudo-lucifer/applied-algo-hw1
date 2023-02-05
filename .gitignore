@@ -31,4 +31,9 @@ resizable_array_benchmark.csv
 hat_scan_benchmark.csv
 resizable_array_scan_benchmark.csv
 download_benchmark_file.sh
+download_benchmark_data.sh
+linked_list_insert.csv
+linked_list_scan.csv
+skip_list_insert.csv
+skip_list_scan.csv
 

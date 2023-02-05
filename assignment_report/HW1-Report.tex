@@ -137,6 +137,31 @@ Let's see the real breanchmark using c++ language on insertion and scan throughp
 
 
 \subsection{Append latency}
+Overall, average cycle count for 10,000 insertions in skip list is 688 cycles while 
+linked list takes 44,836 cycles. This means that skip list insertion is 65x faster than linked list.
+The following picture shows the cpu cycle on each insert operation on both lists.
+
+\begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth,scale=0.5]{skip_list_insert.png}
+        \caption{\label{fig:skip_list_insert} CPU cycle per insert operation}
+\end{figure}
+
+As you can see in figure \ref{fig:skip_list_insert}, skip list insertion is nearly stable at between 400 and 500 cycles with a few strike.
+On the other hand, since linked list takes $O(n)$ to insert an element, the cycle count is higher as the size of array is increased over each operation.
+The result also implies that linked list has a better performance on a small $n$ size while skip list clearly wins the benchmark in a larger scale.
+
+\subsection{Scan throughput}
+Overall scan performance goes the same way as the result in section 2.1.1. Skip list takes only 186 cycles on average to search element with 10,000 elements in total
+while linked list takes 98,651 cycles to search one element. In total, with 10,000 elements, skip list takes 1,860,489 cycles to scan all elements in list while linked list
+uses up to 985,616,508 cycles. In this competition, skip list clearly wins as it is 530x faster.
+
+\begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth,scale=0.5]{skip_list_scan.png}
+        \caption{\label{fig:skip_list_scan} CPU cycle per search operation}
+\end{figure}
+
 
 \chapter{(a,b) tree}
 
