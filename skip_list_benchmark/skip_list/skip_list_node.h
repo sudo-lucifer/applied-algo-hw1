@@ -1,3 +1,5 @@
+#include <cstring>
+
 #ifndef SKIPLISTNODE_H
 #define SKIPLISTNODE_H
 
