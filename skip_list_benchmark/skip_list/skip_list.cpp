@@ -1,5 +1,6 @@
 #include <iostream>
 #include "skip_list.h"
+#include <cstring>
 
 using namespace std;
 
