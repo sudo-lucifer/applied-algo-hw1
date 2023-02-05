@@ -73,7 +73,7 @@ void insert_latency(int n) {
 // }
 
 int main() {
-	int n = 100;
+	int n = 10000;
 	insert_latency(n);
 	return 0;
 }
