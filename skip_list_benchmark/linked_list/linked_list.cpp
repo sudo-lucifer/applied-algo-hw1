@@ -77,7 +77,6 @@ string LinkedList::toString() {
 		return "No key";
 	}
 	while (current_node != NULL) {
-		cout << current_node->key << " ";
 		current_node = current_node->right_node;
 	}
 	return "";

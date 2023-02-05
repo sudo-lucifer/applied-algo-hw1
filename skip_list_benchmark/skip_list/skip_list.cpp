@@ -61,7 +61,6 @@ SkipListNode* SkipList::search(int element) {
 	SkipListNode* current_node = sentinels;
 	for (int i = max_list_level; i >= 0; i--) {
 		while(current_node->node_pointers[i] != NULL && current_node->node_pointers[i]->key < element) {
-			cout << current_node->node_pointers[i]->key << "\n";
 			current_node = current_node->node_pointers[i];
 		}
 	}
