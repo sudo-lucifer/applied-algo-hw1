@@ -11,7 +11,7 @@ class LinkedList{
                 void push(int element);
                 void pop();
                 LinkedListNode* get(int index);
-		int search(int key);
+		LinkedListNode* search(int key);
                 int length();
                 string toString();
                 void destroy();

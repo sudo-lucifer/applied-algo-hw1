@@ -13,6 +13,7 @@ int main() {
 	cout << a.get(2) << "\n";
 	cout << a.get(3) << "\n";
 
+	cout << a.search(5) << "\n";
 	cout << a.toString() << "\n";
 	a.destroy();
 	return 0;

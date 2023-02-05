@@ -43,7 +43,7 @@ void LinkedList::pop() {
 LinkedListNode* LinkedList::get(int index) {
 	LinkedListNode* current_node = sentinel->right_node;
 	int current_index = 0;
-	while (current_index < index) {
+	while (index >= 0 && current_index < index) {
 		if (current_node == NULL) {
 			break;
 		}
@@ -53,8 +53,18 @@ LinkedListNode* LinkedList::get(int index) {
 	return current_node;
 }
 
-int LinkedList::search(int key) {
-	return 1;
+LinkedListNode* LinkedList::search(int key) {
+	LinkedListNode* current_node = sentinel->right_node;
+	while (current_node != NULL) {
+		if (current_node->key > key) {
+			return NULL;
+		}
+		else if (current_node->key == key) {
+			break;
+		}
+		current_node = current_node->right_node;
+	}
+	return current_node;
 }
 
 int LinkedList::length() {
