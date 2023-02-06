@@ -124,6 +124,21 @@ HAT array. As a consequence, resizable array takes 1153 cycles on average while 
 1114 cycles on average. Even though the expansion is costly in HAT array, overall throughput
 of it is around 5 percents faster than resizable array.
 
+\chapter{Skip list performance (question 2)}
+
+\section{Best p for search time complexity}
+Since skip list bases on probability for randomizing node on each layer. The question is what is the optimal $p$ for skip list
+in order to make the search fastest. Let's try with the real example of skip list in c++ with $p$ from 0 to 1 (increase by $\frac{1}{8}$).
+
+\begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth,scale=0.2]{best_p_for_search.png}
+        \caption{\label{fig:best-p-for-search} Average search time on each probability}
+\end{figure}
+
+From benchmark result, the optimal $p$ is $\frac{1}{4}$ for search time complexity as it takes only 172 cycles on average.
+The second place is $p = \frac{3}{8}$ which takes 158 cycles on average for searching elements.
+
 
 \chapter{Skip lists}
 
