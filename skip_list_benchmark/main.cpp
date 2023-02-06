@@ -189,7 +189,7 @@ void best_p_for_search(int n) {
 }
 
 int main() {
-	int n = 100;
+	int n = 1000;
 	// insert_latency(n);
 	// scan_latency(n);
 	// test_skip_list_v2();
