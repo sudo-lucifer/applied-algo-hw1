@@ -162,7 +162,9 @@ void test_skip_list_v2() {
 
 void best_p_for_search(int n) {
 	ofstream SkipListFile("best_p_for_search.csv");
+	ofstream SkipListSpaceFile("best_p_for_space.csv");
 	SkipListFile << "p,cpu_count\n";
+	SkipListSpaceFile << "p,space\n";
 	int max_level_skip_list = log2(n);
 	cout << "================ Best p ================\n";
 	float p = 0.0;
@@ -172,6 +174,7 @@ void best_p_for_search(int n) {
 		for (int i = 1; i <= n; i++) {
 			skip_list.insert(i);
 		}
+		SkipListSpaceFile << p << "," << (sizeof(SkipListNode*) * skip_list.total_nodes) << "\n";
 		for (int i = 1; i <= n; i++){
 			long start = rdtsc();
 			skip_list.search(i);
@@ -179,7 +182,7 @@ void best_p_for_search(int n) {
 			total_skip_list += (end - start);
 		}
 		SkipListFile << p << "," << (total_skip_list / n) << "\n";
-		cout << "p = " << p << ": avevage search cpu cycle count: " <<  (total_skip_list / n) << "\n";
+		cout << "p = " << p << ": avevage search cpu cycle count: " <<  (total_skip_list / n) << ", space: " << (sizeof(SkipListNode*) * skip_list.total_nodes) << "\n";
 		p = p + (float)(1.0/8.0);
 	}
 	SkipListFile.close();

@@ -8,6 +8,7 @@ using namespace std;
 
 class SkipList {
 	public:
+		int total_nodes;
 		SkipList(int max_level, float p);
 		int random_level();
 		void insert(int element);

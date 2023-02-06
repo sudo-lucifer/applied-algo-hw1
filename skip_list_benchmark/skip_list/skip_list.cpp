@@ -8,6 +8,7 @@ SkipList::SkipList(int max_level, float p) {
 	max_list_level = max_level;
 	prob = p;
 	current_level = 0;
+	total_nodes = 0;
 	sentinels = new SkipListNode(0, max_list_level);
 }
 
@@ -40,6 +41,7 @@ void SkipList::insert(int element) {
 
 	if (current_layer_node == NULL || current_layer_node->key != element) {
 		int random_layer = random_level();
+		total_nodes += random_layer;
 
 		if (random_layer > current_level) {
 			for (int i = current_level + 1; i < random_layer + 1; i++){
