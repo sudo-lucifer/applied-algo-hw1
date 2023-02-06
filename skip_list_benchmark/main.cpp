@@ -7,11 +7,11 @@
 
 using namespace std;
 
-// static __inline__ unsigned long long rdtsc(void){
-//     unsigned hi, lo;  
-//     __asm__ __volatile__ ("rdtsc" : "=a"(lo), "=d"(hi));
-//     return ( (unsigned long long)lo)|( ((unsigned long long)hi)<<32   );
-// }
+static __inline__ unsigned long long rdtsc(void){
+    unsigned hi, lo;  
+    __asm__ __volatile__ ("rdtsc" : "=a"(lo), "=d"(hi));
+    return ( (unsigned long long)lo)|( ((unsigned long long)hi)<<32   );
+}
 
 
 // void insert_latency(int n) {
@@ -84,15 +84,52 @@ using namespace std;
 // 	cout << "linked list: " << total_linked_list << "\n";
 // }
 
+void scan_v2_latency(int n) {
+	ofstream SkipListFile("skip_list_scan.csv");
+	ofstream SkipListV2File("skip_list_v2_scan.csv");
+	SkipListFile << "operation,cpu_count\n";
+	SkipListV2File << "operation,cpu_count\n";
+	int max_level_skip_list = 20;
+	SkipList skip_list(max_level_skip_list, (float) 1/4);
+	SkipListV2 skip_list_v2(max_level_skip_list, (float) 1/4);
+	cout << "================ Search V2 ================\n";
+	long total_skip_list = 0;
+	long total_skip_list_v2 = 0;
+	for (int i = 1; i <= n; i++) {
+		skip_list.insert(i);
+		skip_list_v2.insert(i);
+	}
+	for (int i = 1; i <= n; i++) {
+		long start = rdtsc();
+		skip_list_v2.search(i);
+		long end = rdtsc();
+		SkipListV2File << i << "," << (end - start) << "\n";
+		total_skip_list_v2 += (end - start);
+	}
+	for (int i = 1; i <= n; i++) {
+		long start = rdtsc();
+		skip_list.search(i);
+		long end = rdtsc();
+		SkipListFile << i << "," << (end - start) << "\n";
+		total_skip_list += (end - start);
+	}
+	cout << "Average one search cycle count\n";
+	cout << "Skip list: " << (total_skip_list / n) << "\n";
+	cout << "Skip list v2: " << (total_skip_list_v2 / n) << "\n";
+	cout << "\nTotal scan cycle cout cycle count\n";
+	cout << "Skip list: " << total_skip_list << "\n";
+	cout << "Skip list v2: " << total_skip_list_v2 << "\n";
+}
+
 // void test_skip_list() {
-// 	int n = 20;
+// 	int n = 30;
 // 	int max_level_skip_list = log(n);
-// 	SkipList a = SkipList(max_level_skip_list,(float) 1/4);
+// 	SkipList a = SkipList(max_level_skip_list,(float) 1/2);
 // 	for (int i = 1; i <= n; i++) {
 // 		a.insert(i);
 // 	}
 // 	cout << a.toString();
-// 	cout << a.search(21);
+// 	cout << a.search(2);
 // }
 
 // void test_linked_list() {
@@ -110,22 +147,24 @@ using namespace std;
 // 	a.destroy();
 // }
 
-void test_skip_list_v2() {
-	int n = 20;
-	int max_level_skip_list = log(n);
-	SkipListV2 a(max_level_skip_list, (float) 1/4);
-	for (int i = 1; i <= n; i++) {
-		a.insert(i);
-	}
-	cout << a.toString();
-	SkipListV2Node* test = a.search(12);
-	cout << test->backward[1]->key<< " " << test->forward[1]->key << "\n";
-}
+// void test_skip_list_v2() {
+// 	int n = 100;
+// 	int max_level_skip_list = 10;
+// 	SkipListV2 a(max_level_skip_list, (float) 1/2);
+// 	for (int i = 1; i <= n; i++) {
+// 		a.insert(i);
+// 	}
+// 	cout << a.toString();
+// 	cout << "\n";
+// 	SkipListV2Node* test = a.search(97);
+// 	cout << test->key << "\n";
+// }
 
 int main() {
-	// int n = 10000;
+	int n = 10000;
 	// insert_latency(n);
 	// scan_latency(n);
-	test_skip_list_v2();
+	// test_skip_list_v2();
+	scan_v2_latency(n);
 	return 0;
 }

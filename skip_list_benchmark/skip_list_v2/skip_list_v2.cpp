@@ -61,16 +61,38 @@ void SkipListV2::insert(int element) {
 	}
 }
 
-SkipListV2Node* SkipListV2::search(int element) {
-	SkipListV2Node* current_node = sentinels;
-	for (int i = max_list_level; i >= 0; i--) {
-		while(current_node->forward[i] != NULL && current_node->forward[i]->key < element) {
-			current_node = current_node->forward[i];
+SkipListV2Node* SkipListV2::pick_key(SkipListV2Node* current_node, int element) {
+	SkipListV2Node* min_node = NULL;
+	SkipListV2Node* compare_node = current_node;
+	for (int i = current_level - 1; i >= 0; i--) {
+		// cout << "pass" << current_level << "\n";
+		if (compare_node->forward[i] != NULL && compare_node->forward[i]->key < element){
+			if (min_node == NULL || min_node->key > compare_node->forward[i]->key) {
+				min_node = compare_node->forward[i];
+			}
 		}
 	}
-	current_node = current_node->forward[0];
-	if (current_node && current_node->key == element) {
-		return current_node;
+	return min_node;
+}
+
+SkipListV2Node* SkipListV2::search(int element) {
+	SkipListV2Node* current_node = sentinels;
+	SkipListV2Node* start_node = sentinels;
+	int start_layer = 0;
+	for (int i = 0; i <= current_level; i++) {
+		if (current_node->forward[i] != NULL && current_node->forward[i]->key <= element) {
+			start_node = current_node->forward[i];
+			start_layer = i;
+		}
+	}
+	for (int i = start_layer; i >= 0; i--) {
+		while(start_node->forward[i] != NULL && start_node->forward[i]->key <= element) {
+			start_node = start_node->forward[i];
+		}
+	}
+	// start_node = start_node->forward[0];
+	if (start_node && start_node->key == element) {
+		return start_node;
 	}
 	return NULL;
 }

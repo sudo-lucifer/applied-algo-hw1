@@ -11,6 +11,7 @@ class SkipListV2 {
 		SkipListV2(int max_level, float p);
 		int random_level();
 		void insert(int element);
+		SkipListV2Node* pick_key(SkipListV2Node* current_node, int element);
 		SkipListV2Node* search(int element);
 		string toString();
 	private:
