@@ -36,4 +36,6 @@ linked_list_insert.csv
 linked_list_scan.csv
 skip_list_insert.csv
 skip_list_scan.csv
+skip_list_v2_scan.csv
+_minted*
 

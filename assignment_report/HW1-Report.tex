@@ -162,6 +162,53 @@ uses up to 985,616,508 cycles. In this competition, skip list clearly wins as it
         \caption{\label{fig:skip_list_scan} CPU cycle per search operation}
 \end{figure}
 
+\section{Bi-directional search}
+
+Searching in one directional skip list takes $O(\log_2 n)$ where $n$ is the amount of element in array since we start from the top layer.
+Let's improve the running time of search algorithm by allowing it to go up and down. In this way, we look for the layer to start searching, 
+instead of alway start from the highest level. In this way, the search will take $O(log_2 d)$ where d is the amount of elements smaller than the given key
+because the highest level we can go is $O(log_2 d)$ with high probability. This also means that traversing up and down at $\log_2 d$ level also takes 
+$2\log_2 d$ to the desired key. In total, the search takes $2\log_2 d + 2\log_2 d = O(\log_2 d)$. Let's take a look at pseudo code.
+
+\begin{minted}{c}
+search(int element) {
+        let x -> header;
+        let start_node -> header;
+        let layer -> 0;
+        -- find start node starting from bottom layer (traverse up)
+        for i = 0 -> max level so far {
+                if x->forward[i].key < element:
+                        start_node = x->forward[i].key;
+                        layer = i;
+        }
+        -- traverse down to desired key
+        for i = layer -> 0 (inclusive) {
+                while start_node->forward[i] < element:
+                start_node = start_node->forward[i];
+        };
+        -- check final key
+        if start_node != NULL and start_node->key == element {
+                return start_node.key
+        }
+        return NULL;
+}
+\end{minted}
+
+\subsection{Benchmark}
+
+Let's see the performance difference between one-directional skip list and bi-direction skip list search algorithm.
+The benchmark is to measure scan throughput of 1,000 sizes with 20 max levels. The result is the following.
+
+\begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth,scale=0.5]{skip_list_v2_scan.png}
+        \caption{\label{fig:skip_list_v2_scan} CPU cycle per search operation}
+\end{figure}
+
+The performance is slightly different that bi-directional search takes 436 cycles on average while one-directional search takes
+451 cycles. In conclusion, bi-directional skip list search is faster by 4\%.
+
+
 
 \chapter{(a,b) tree}
 
