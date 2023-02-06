@@ -139,6 +139,24 @@ in order to make the search fastest. Let's try with the real example of skip lis
 From benchmark result, the optimal $p$ is $\frac{1}{4}$ for search time complexity as it takes only 172 cycles on average.
 The second place is $p = \frac{3}{8}$ which takes 158 cycles on average for searching elements.
 
+\section{Best p for space complexity}
+
+As we know that, skip list has $O(\log_2 n)$ levels with high probability. If we use p-bias coin, the space usage will be different
+in practical. I will benchmark the space complexity with $p$ from 0 to 1 and increase by $\frac{1}{8}$ with $n = 1000$
+
+\newpage
+\begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth,scale=0.2]{best_p_for_space.png}
+        \caption{\label{fig:best-p-for-space} Space usage on each probability}
+\end{figure}
+
+As a result, it is not surprise that $p = 1$ takes the highest space as it guarantees that each new node has $\log_2 n$ levels which takes space up tp $O(n\log_2 n)$.
+So, the best p for space complexity is $p = 0$ as there is no extra layer which is $O(n)$ in total.
+
+\section{Conclusion}
+Although the benchmark result determines that $p = 0$ is the best for space complxity, it trades with the search time complexity as shown in section 2.1.
+With both result combined, the optimal $p$ is $\frac{1}{4}$ as it provides the fastest run time for search complexity and takes decent amount of space in memory.
 
 \chapter{Skip lists}
 
@@ -185,6 +203,7 @@ instead of alway start from the highest level. In this way, the search will take
 because the highest level we can go is $O(log_2 d)$ with high probability. This also means that traversing up and down at $\log_2 d$ level also takes 
 $2\log_2 d$ to the desired key. In total, the search takes $2\log_2 d + 2\log_2 d = O(\log_2 d)$. Let's take a look at pseudo code.
 
+\subsection{Pseudo code}
 \begin{minted}{c}
 search(int element) {
         let x -> header;
