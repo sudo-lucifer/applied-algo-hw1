@@ -180,7 +180,7 @@ void best_p_for_search(int n) {
 		}
 		SkipListFile << p << "," << (total_skip_list / n) << "\n";
 		cout << "p = " << p << ": avevage search cpu cycle count: " <<  (total_skip_list / n) << "\n";
-		p = p + (float)(1.0/16.0);
+		p = p + (float)(1.0/8.0);
 	}
 	SkipListFile.close();
 }
