@@ -164,10 +164,9 @@ void best_p_for_search(int n) {
 	ofstream SkipListFile("best_p_for_search.csv");
 	SkipListFile << "p,cpu_count\n";
 	int max_level_skip_list = log2(n);
-	SkipList skip_list(max_level_skip_list, (float) 1/4);
 	cout << "================ Best p ================\n";
 	float p = 0.0;
-	while (p <= 1) {
+	while (p <= 1.0) {
 		long total_skip_list = 0;
 		SkipList skip_list(max_level_skip_list, (float) p);
 		for (int i = 1; i <= n; i++) {
@@ -181,7 +180,7 @@ void best_p_for_search(int n) {
 		}
 		SkipListFile << p << "," << (total_skip_list / n) << "\n";
 		cout << "p = " << p << ": avevage search cpu cycle count: " <<  (total_skip_list / n) << "\n";
-		p = p + (float)(1/8);
+		p = p + (float)(1.0/8.0);
 	}
 	SkipListFile.close();
 }
